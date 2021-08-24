@@ -25,6 +25,13 @@ class App {
         }
     };
 
+    private enableRouteChange() {
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.slice(1);
+            App.renderIdPage(hash);
+        });
+    }
+
     constructor() {
         this.container = document.body;
         this.initialPage = new MainPage('main-page');
@@ -34,6 +41,7 @@ class App {
 
     run() {
         App.renderIdPage('main-page');
+        this.enableRouteChange();
     }
 }
 
