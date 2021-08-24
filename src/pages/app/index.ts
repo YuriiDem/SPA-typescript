@@ -1,21 +1,39 @@
 import MainPage from "../main";
-import SettingsPage from '../settings/'
+import SettingsPage from '../settings/';
+import StatisticsPage from "../statistics";
+import Page from "../../core/templates/page";
 
 class App { 
     private container: HTMLElement;
     private initialPage: MainPage;
 
+    static renderIdPage(pageId: string) {
+        document.body.innerHTML = '';
+        let page: Page | null = null;
+
+        if(pageId === 'main-page'){
+            page = new MainPage(pageId); 
+        } else if (pageId === 'settings-page') {
+            page = new SettingsPage(pageId); 
+        } else if (pageId === 'statistics-page') {
+            page = new StatisticsPage(pageId); 
+        }
+
+        if(page){
+            const pageHTML = page.render();
+            document.body.append(pageHTML);
+        }
+    };
+
     constructor() {
         this.container = document.body;
-        this.initialPage = new SettingsPage('main');
+        this.initialPage = new MainPage('main-page');
 
     }
 
 
-
     run() {
-        const mainPageHTML = this.initialPage.render();
-        this.container.append(mainPageHTML);
+        App.renderIdPage('main-page');
     }
 }
 

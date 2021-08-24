@@ -2,7 +2,7 @@ import Page from "../../core/templates/page";
 
 class SettingsPage extends Page {
     static TextObject = {
-        MainTitle: 'Settings Page',
+        MainTitle: 'Settings',
     };
 
     constructor(id: string) {
