@@ -2,7 +2,7 @@ import MainPage from "../main";
 import SettingsPage from '../settings/';
 import StatisticsPage from "../statistics";
 import Page from "../../core/templates/page";
-
+import Header from "../../core/components/header";
 
 export const enum idPages {
     MAIN_PAGE = 'main-page',
@@ -12,10 +12,16 @@ export const enum idPages {
 
 class App { 
     private static container: HTMLElement = document.body;
+    private static defaultPageid: string = 'current-page';
     private initialPage: MainPage;
+    private header: Header;
 
     static renderIdPage(pageId: string) {
-        App.container.innerHTML = '';
+        const currentPageHTML = document.querySelector(`#${App.defaultPageid}`);
+        if(currentPageHTML){
+            currentPageHTML.remove();
+        }
+
         let page: Page | null = null;
 
         if(pageId === idPages.MAIN_PAGE){
@@ -28,6 +34,7 @@ class App {
 
         if(page){
             const pageHTML = page.render();
+            pageHTML.id = App.defaultPageid;
             App.container.append(pageHTML);
         }
     };
@@ -40,12 +47,13 @@ class App {
     }
 
     constructor() {
+        this.header = new Header('header', 'header-container');
         this.initialPage = new MainPage('main-page');
-
     }
 
 
     run() {
+        App.container.append(this.header.render());
         App.renderIdPage('main-page');
         this.enableRouteChange();
     }

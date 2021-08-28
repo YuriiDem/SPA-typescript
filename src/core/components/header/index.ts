@@ -22,15 +22,18 @@ class Header extends Components {
     }
 
     renderNavButtons(){
-        const navButtons = document.createElement('div');
+        const pageButtons = document.createElement('div');
         Buttons.forEach((button) => {
             const navButton = document.createElement('a');
-            navButton.href = ``;
+            navButton.href = `#${button.id}`;
+            navButton.innerText = button.text;
+            pageButtons.append(navButton);
         });
-
+        this.container.append(pageButtons);
     }
 
     render() {
+        this.renderNavButtons();
         return this.container;
     }
 }
