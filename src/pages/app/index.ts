@@ -3,6 +3,7 @@ import SettingsPage from '../settings/';
 import StatisticsPage from "../statistics";
 import Page from "../../core/templates/page";
 import Header from "../../core/components/header";
+import Error, { ErrorTypes } from "../error";
 
 export const enum idPages {
     MAIN_PAGE = 'main-page',
@@ -30,6 +31,8 @@ class App {
             page = new SettingsPage(pageId); 
         } else if (pageId === idPages.STATICS_PAGE) {
             page = new StatisticsPage(pageId); 
+        } else {
+            page = new Error(pageId, ErrorTypes.ERROR_404);
         }
 
         if(page){
